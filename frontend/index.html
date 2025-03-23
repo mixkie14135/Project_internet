@@ -13,141 +13,87 @@
 </head>
 
 <body>
-
     <header>
-        <a href="student.html">Go to education system management</a>
+        <div class="logo">📘 Education System</div>
+        <nav>
+            <a href="student.html">Go to education system management</a>
+        </nav>
     </header>
 
-
-    <div class="container">
-        <!-- 3. form -->
-        <div class="header form-input">
-            Education Form
-        </div>
-
-        <div class="flex form-input">
-            <div class="header-form">ชื่อจริง</div>
-            <input class="form" name="firstname" type="text">
-        </div>
-
-        <div class="flex form-input">
-            <div class="header-form">นามสกุล</div>
-            <input class="form" name="lastname" type="text">
-        </div>
-
-        <div class="flex form-input">
-            <div class="header-form">อายุ</div>
-            <input class="form" name="age" type="number" min="0" max="100">
-        </div>
-
-
-        <div class="form-input">
-            ที่อยู่
-            <div>
-                <textarea name="address"></textarea>
-            </div>
-        </div>
-
-
-        <div class="flex education_level form-input">
-            <div class="header-form">ระดับการศึกษา</div>
-            <div class="flex">
-                <div>
-                    <input name="education_level" type="radio" value="ปี1"> ปี1
+    <div class="form-card">
+        <h2 class="form-title">Education Form</h2>
+        <form>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>ชื่อจริง</label>
+                    <input type="text" name="firstname" placeholder="ชื่อจริง">
                 </div>
-                <div>
-                    <input name="education_level" type="radio" value="ปี2"> ปี2
+                <div class="form-group">
+                    <label>นามสกุล</label>
+                    <input type="text" name="lastname" placeholder="นามสกุล">
                 </div>
-                <div>
-                    <input name="education_level" type="radio" value="ปี3"> ปี3
+                <div class="form-group">
+                    <label>อายุ</label>
+                    <input type="number" name="age" min="0" max="100" placeholder="อายุ">
                 </div>
-                <div>
-                    <input name="education_level" type="radio" value="ปี4"> ปี4
+                <div class="form-group full-width">
+                    <label>ที่อยู่</label>
+                    <textarea name="address" placeholder="ที่อยู่"></textarea>
                 </div>
-            </div>
-        </div>
-
-
-        <div class="flex form-input">
-            <div class="header-form">รายวิชา</div>
-            <input class="form" name="subject" type="text">
-        </div>
-
-
-        <div class="flex grade form-input">
-            <div class="header-form">เกรด</div>
-            <div class="flex">
-                <div>
-                    <input name="grade" type="radio" value="A"> A
+                <div class="form-group full-width">
+                    <label>ระดับการศึกษา</label>
+                    <div class="radio-group">
+                        <label><input name="education_level" type="radio" value="ปี1"> ปี1</label>
+                        <label><input name="education_level" type="radio" value="ปี2"> ปี2</label>
+                        <label><input name="education_level" type="radio" value="ปี3"> ปี3</label>
+                        <label><input name="education_level" type="radio" value="ปี4"> ปี4</label>
+                    </div>
                 </div>
-                <div>
-                    <input name="grade" type="radio" value="B+"> B+
+                <div class="form-group">
+                    <label>รายวิชา</label>
+                    <input type="text" name="subject" placeholder="รายวิชา">
                 </div>
-                <div>
-                    <input name="grade" type="radio" value="B"> B
+                <div class="form-group full-width">
+                    <label>เกรด</label>
+                    <div class="radio-group">
+                        <label><input name="grade" type="radio" value="A"> A</label>
+                        <label><input name="grade" type="radio" value="B+"> B+</label>
+                        <label><input name="grade" type="radio" value="B"> B</label>
+                        <label><input name="grade" type="radio" value="C+"> C+</label>
+                        <label><input name="grade" type="radio" value="C"> C</label>
+                        <label><input name="grade" type="radio" value="D+"> D+</label>
+                        <label><input name="grade" type="radio" value="D"> D</label>
+                        <label><input name="grade" type="radio" value="F"> F</label>
+                    </div>
                 </div>
-                <div>
-                    <input name="grade" type="radio" value="C+"> C+
+                <div class="form-group full-width">
+                    <label>กิจกรรมเสริมการเรียน</label>
+                    <textarea name="extralearningactivities" placeholder="กิจกรรมเสริมการเรียน"></textarea>
                 </div>
-                <div>
-                    <input name="grade" type="radio" value="C"> C
+                <div class="form-group">
+                    <label>ชื่อจริงผู้สอน</label>
+                    <input type="text" name="teacherfirstname" placeholder="ชื่อจริงผู้สอน">
                 </div>
-                <div>
-                    <input name="grade" type="radio" value="D+"> D+
+                <div class="form-group">
+                    <label>นามสกุลผู้สอน</label>
+                    <input type="text" name="teacherlastname" placeholder="นามสกุลผู้สอน">
                 </div>
-                <div>
-                    <input name="grade" type="radio" value="D"> D
+                <div class="form-group">
+                    <label>รายวิชาที่สอน</label>
+                    <input type="text" name="course" placeholder="รายวิชาที่สอน">
                 </div>
-                <div>
-                    <input name="grade" type="radio" value="F"> F
+                <div class="form-group">
+                    <label>เวลาเรียน</label>
+                    <input type="date" name="time">
                 </div>
             </div>
-        </div>
 
-
-
-        <div class="form-input">
-            กิจกรรมเสริมการเรียน
-            <div>
-                <textarea name="extralearningactivities"></textarea>
+            <div id="message" class="message"></div>
+            <div class="btn-container">
+                <button type="button" onclick="submitData()" class="btn-main">ส่งข้อมูล</button>
             </div>
-        </div>
-
-
-        <div class="flex form-input">
-            <div class="header-form">ชื่อจริงผู้สอน</div>
-            <input class="form" name="teacherfirstname" type="text">
-        </div>
-
-        <div class="flex form-input">
-            <div class="header-form">นามสกุลผู้สอน</div>
-            <input class="form" name="teacherlastname" type="text">
-        </div>
-
-
-        <div class="flex form-input">
-            <div class="header-form">รายวิชาที่สอน</div>
-            <input class="form" name="course" type="text">
-        </div>
-
-
-        <div class="flex form-input">
-            <div class="header-form">เวลาเรียน</div>
-            <input class="form" name="time" type="date">
-        </div>
-
-        <div id="message" class="message"></div>
-
-
-        <div class="center">
-            <button onclick="submitData()" class="button">ส่งข้อมูล</button>
-        </div>
+        </form>
     </div>
-
-    <footer>
-        <p>© 2024 Patcharapon Company. All rights reserved.</p>
-    </footer>
-
 
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <script src="index.js"></script>

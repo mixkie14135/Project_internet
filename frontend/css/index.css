@@ -1,85 +1,127 @@
-body{
-  background-image: url("https://i.pinimg.com/564x/e5/82/3c/e5823c27686a545ffb52b15571128064.jpg");
-  background-size: 100% 105%;
-  background-repeat: no-repeat; /* ไม่ให้ภาพทำซ้ำ */
+body {
   font-family: "Kanit", sans-serif;
   font-weight: 400;
   font-style: normal;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
 }
 
-
-.container {
-  width: 100%;
-  max-width: 640px;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: #93b4c6;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-
-header{
-  position: fixed;
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  color: black;
+  padding: 16px 32px;
+  position: sticky;
   top: 0;
-  left: 0;
-  width: 20%;
-  background-color: #333; /* สีพื้นหลังของ Header */
-  color: #fff; /* สีข้อความใน Header */
-  padding: 10px 0; /* การเพิ่มช่องว่างด้านบนและด้านล่างของเนื้อหาใน Header */
+  z-index: 999;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
 }
 
-a {
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+nav a {
   color: white;
+  background-color: #444;
   text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px 18px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
 }
 
-
-
-header a:hover {
-  color: #FF5733; /* เปลี่ยนสีข้อความเป็นสีส้มเมื่อชี้เมาส์ */
+nav a:hover {
+  background-color: #7c39b3;
 }
 
-.header {
-  font-size: 30px;
+.form-card {
+  background-color: #fff;
+  padding: 32px;
+  max-width: 800px;
+  margin: 40px auto;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.form-title {
+  font-size: 24px;
+  margin-bottom: 24px;
+  font-weight: bold;
   text-align: center;
 }
 
-.header-form {
-  width: 140px;
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
-.flex {
+.form-group {
   display: flex;
+  flex-direction: column;
 }
 
-.form-input {
-  margin-bottom: 10px;
+.full-width {
+  grid-column: span 2;
 }
 
-.center {
-  text-align: center; /* ปุ่ม button */
+.form-group label {
+  font-weight: 500;
+  margin-bottom: 6px;
 }
 
-input.form,
-textarea{
-  border: 1px gainsboro solid;
-  width: 100%;
-  background-color: #ebebeb;
+.form-group input,
+.form-group textarea,
+.form-group select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: 'Kanit', sans-serif;
+  background-color: #fff;
 }
 
-.button {
-  border: 0;
-  width: 50%;
-  height: 40px;
-  background-color: #2962ff;
+textarea {
+  resize: vertical;
+}
+
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btn-container {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.btn-main {
+  padding: 12px 32px;
+  background-color: #7c39b3;
   color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-main:hover {
+  background-color: #9a4db4;
 }
 
 .message {
   background-color: lightgray;
   padding: 10px;
-  margin-bottom: 10px;
+  margin-top: 20px;
+  border-radius: 8px;
   display: none;
 }
 
@@ -93,40 +135,31 @@ textarea{
   display: block;
 }
 
- 
-
 footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
   width: 100%;
-  background-color: #333; /* สีพื้นหลังของ Footer */
-  color: #fff; /* สีข้อความใน Footer */
-  padding: 10px 0; /* การเพิ่มช่องว่างด้านบนและด้านล่างของเนื้อหาใน Footer */
-  text-align: center; /* จัดเนื้อหาใน Footer ให้อยู่กึ่งกลาง *  */
-
+  margin-top: 40px;
 }
 
-
-
-
 @media screen and (max-width: 768px) {
-  header 
-  .container {
-    width: 100%;
-    max-width: 100%;
+  .form-grid {
+    grid-template-columns: 1fr;
   }
 
-  header {
-    width: 100%;
+  .logo {
+    font-size: 20px;
   }
 
-  footer{
-    display: none;
+  nav a {
+    font-size: 14px;
+    padding: 8px 14px;
   }
 
-  .container {
-    padding-top: 50px;
+  .form-card {
+    padding: 20px;
+    margin: 20px;
   }
-
 }

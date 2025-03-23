@@ -68,10 +68,34 @@ const validateData = (studentData) => {
 
 
 // path = GET /students สำหรับ get students ทั้งหมดที่บันทึกเข้าไปออกมา
+// app.get('/students', async (req, res) => {
+//   const results = await conn.query('SELECT * FROM students')
+//   res.json(results[0])
+// })
+
 app.get('/students', async (req, res) => {
-  const results = await conn.query('SELECT * FROM students')
-  res.json(results[0])
-})
+  try {
+    const rawSearch = req.query.search || '';
+    const search = rawSearch.trim().toLowerCase(); // ✨ แปลงเป็นตัวพิมพ์เล็ก + trim
+    console.log('🔍 Searching:', search);
+
+    let sql = 'SELECT * FROM students';
+    let params = [];
+
+    if (search !== '') {
+      sql += ' WHERE LOWER(firstname) LIKE ? OR LOWER(lastname) LIKE ?';
+      params.push(`%${search}%`, `%${search}%`);
+    }
+
+    const results = await conn.query(sql, params);
+    res.json(results[0]);
+  } catch (err) {
+    console.error('❌ Search error:', err);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
 
 // path = POST /students สำหรับการสร้าง students ใหม่บันทึกเข้าไป
 app.post('/students', async (req, res) => {
@@ -159,6 +183,10 @@ app.delete('/students/:id', async (req, res) => {
     })
   }
 })
+
+
+
+
 
 app.listen(port, async (req, res) => {
   await initMySQL()
