@@ -1,0 +1,132 @@
+body{
+  background-image: url("https://i.pinimg.com/564x/e5/82/3c/e5823c27686a545ffb52b15571128064.jpg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat; /* ไม่ให้ภาพทำซ้ำ */
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+.container {
+  width: 100%;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #93b4c6;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+
+header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20%;
+  background-color: #333; /* สีพื้นหลังของ Header */
+  color: #fff; /* สีข้อความใน Header */
+  padding: 10px 0; /* การเพิ่มช่องว่างด้านบนและด้านล่างของเนื้อหาใน Header */
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+
+
+header a:hover {
+  color: #FF5733; /* เปลี่ยนสีข้อความเป็นสีส้มเมื่อชี้เมาส์ */
+}
+
+.header {
+  font-size: 30px;
+  text-align: center;
+}
+
+.header-form {
+  width: 140px;
+}
+
+.flex {
+  display: flex;
+}
+
+.form-input {
+  margin-bottom: 10px;
+}
+
+.center {
+  text-align: center; /* ปุ่ม button */
+}
+
+input.form,
+textarea{
+  border: 1px gainsboro solid;
+  width: 100%;
+  background-color: #ebebeb;
+}
+
+.button {
+  border: 0;
+  width: 50%;
+  height: 40px;
+  background-color: #2962ff;
+  color: white;
+}
+
+.message {
+  background-color: lightgray;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: none;
+}
+
+.message.success {
+  background-color: lightgreen;
+  display: block;
+}
+
+.message.danger {
+  background-color: lightcoral;
+  display: block;
+}
+
+ 
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #333; /* สีพื้นหลังของ Footer */
+  color: #fff; /* สีข้อความใน Footer */
+  padding: 10px 0; /* การเพิ่มช่องว่างด้านบนและด้านล่างของเนื้อหาใน Footer */
+  text-align: center; /* จัดเนื้อหาใน Footer ให้อยู่กึ่งกลาง *  */
+
+}
+
+
+
+
+@media screen and (max-width: 768px) {
+  header 
+  .container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  header {
+    width: 100%;
+  }
+
+  footer{
+    display: none;
+  }
+
+  .container {
+    padding-top: 50px;
+  }
+
+}
