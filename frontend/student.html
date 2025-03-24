@@ -1,50 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Education Management</title>
-    <link rel="icon" type="png" href="logo.png">
-    <link rel="stylesheet" href="css/student.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Education Management</title>
+  <link rel="icon" type="png" href="logo.png">
+  <link rel="stylesheet" href="css/student.css">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
-
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <header>
-        <div class="logo">📘 Education System</div>
-        <nav>
-          <a href="index.html">Go to Education Form</a>
-        </nav>
-      </header>
-      
-    <!-- <header>
-        <a href="index.html">Back to Education Form</a>
-    </header> -->
+  <header>
+    <div class="logo">📘 Education System</div>
+    <nav>
+      <a href="index.html">Go to Education Form</a>
+    </nav>
+  </header>
 
-    <div class="search-container">
-        <div class="search-box">
-          <input type="text" id="searchInput" placeholder="ค้นหาชื่อนักเรียน..." />
-          <button onclick="searchStudents()">ค้นหา</button>
-        </div>
-        <div id="searchWarning" class="warning-popup" style="display: none;"></div>
-      </div>
-      
-      
-      
-    <div class="student"> Management</div>
+  <div class="search-filter-wrapper">
+    <!-- ช่องค้นหาชื่อนักเรียน -->
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="ค้นหาชื่อนักเรียน..." />
+      <button onclick="searchStudents()">ค้นหา</button>
+    </div>
 
-    <div id="student"></div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
-    <script src="student.js"></script>
+    <!-- ส่วนเลือก filter ระดับการศึกษา -->
+    <div class="filter-box">
+      <label for="filterLevel">ระดับการศึกษา:</label>
+      <select id="filterLevel" onchange="filterByLevel()">
+        <option value="">ทั้งหมด</option>
+        <option value="ปี1">ปี1</option>
+        <option value="ปี2">ปี2</option>
+        <option value="ปี3">ปี3</option>
+        <option value="ปี4">ปี4</option>
+      </select>
+    </div>
+  </div>
 
+  <div class="search-warning-container">
+    <div id="searchWarning" class="warning-popup" style="display: none;"></div>
+  </div>
 
+  <div class="student">Management</div>
+  <div id="student"></div>
+
+  <!-- sweetalert2 และ axios -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+
+  <!-- ไฟล์ JS หลัก -->
+  <script src="student.js"></script>
 </body>
-
 </html>

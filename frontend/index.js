@@ -1,12 +1,11 @@
 const BASE_URL = 'http://localhost:8000'
 
 let mode = 'CREATE'
-let selectedId = '' //ตัวแปรแบบ Global ใช้ได้ทุกที่
+let selectedId = ''
 
 window.onload = async () => {
     const urlParams = new URLSearchParams(window.location.search)
     const id = urlParams.get('id')
-    console.log('id', id)
     if (id) {
         mode = 'EDIT'
         selectedId = id
@@ -26,13 +25,10 @@ window.onload = async () => {
             let courseDOM = document.querySelector('input[name=course]')
             let timeDOM = document.querySelector('input[name=time]')
 
-
             const date = new Date(student.time);
             const datedata = date.toISOString().split('T')[0];
-
             student.time = datedata
 
-            
             firstnameDOM.value = student.firstname
             lastnameDOM.value = student.lastname
             ageDOM.value = student.age
@@ -43,7 +39,6 @@ window.onload = async () => {
             teacherlastnameDOM.value = student.teacherlastname
             courseDOM.value = student.course
             timeDOM.value = student.time
-
 
             let education_levelDOMs = document.querySelectorAll('input[name=education_level]')
             let gradeDOMs = document.querySelectorAll('input[name=grade]')
@@ -60,51 +55,26 @@ window.onload = async () => {
                 }
             }
 
-
-
         } catch (error) {
             console.log('error', error)
         }
     }
 }
+
 const validateData = (studentData) => {
     let errors = []
-    if (!studentData.firstname) {
-        errors.push('กรุณากรอกชื่อ')
-    }
-    if (!studentData.lastname) {
-        errors.push('กรุณากรอกนามสกุล')
-    }
-    if (!studentData.age) {
-        errors.push('กรุณากรอกอายุ')
-    }
-    if (!studentData.address) {
-        errors.push('กรุณากรอกที่อยู่')
-    }
-    if (!studentData.education_level) {
-        errors.push('กรุณาเลือกระดับการศึกษา')
-    }
-    if (!studentData.subject) {
-        errors.push('กรุณากรอกชื่อวิชา')
-    }
-    if (!studentData.grade) {
-        errors.push('กรุณากรอกเกรด')
-    }
-    if (!studentData.extralearningactivities) {
-        errors.push('กรุณากรอกกิจกรรมเสริมการเรียน')
-    }
-    if (!studentData.teacherfirstname) {
-        errors.push('กรุณากรอกชื่ออาจารย์ผู้สอน')
-    }
-    if (!studentData.teacherlastname) {
-        errors.push('กรุณากรอกนามสกุลอาจารย์ผู้สอน')
-    }
-    if (!studentData.course) {
-        errors.push('กรุณากรอกวิชาที่สอน')
-    }
-    if (!studentData.time) {
-        errors.push('กรุณากรอกเวลาการสอน')
-    }
+    if (!studentData.firstname) errors.push('กรุณากรอกชื่อ')
+    if (!studentData.lastname) errors.push('กรุณากรอกนามสกุล')
+    if (!studentData.age) errors.push('กรุณากรอกอายุ')
+    if (!studentData.address) errors.push('กรุณากรอกที่อยู่')
+    if (!studentData.education_level) errors.push('กรุณาเลือกระดับการศึกษา')
+    if (!studentData.subject) errors.push('กรุณากรอกชื่อวิชา')
+    if (!studentData.grade) errors.push('กรุณากรอกเกรด')
+    if (!studentData.extralearningactivities) errors.push('กรุณากรอกกิจกรรมเสริมการเรียน')
+    if (!studentData.teacherfirstname) errors.push('กรุณากรอกชื่ออาจารย์ผู้สอน')
+    if (!studentData.teacherlastname) errors.push('กรุณากรอกนามสกุลอาจารย์ผู้สอน')
+    if (!studentData.course) errors.push('กรุณากรอกวิชาที่สอน')
+    if (!studentData.time) errors.push('กรุณากรอกเวลาการสอน')
     return errors
 }
 
@@ -122,8 +92,6 @@ const submitData = async () => {
     let courseDOM = document.querySelector('input[name=course]')
     let timeDOM = document.querySelector('input[name=time]')
 
-    let messageDOM = document.getElementById('message')
-
     try {
         let studentData = {
             firstname: firstnameDOM.value,
@@ -139,50 +107,39 @@ const submitData = async () => {
             course: courseDOM.value,
             time: timeDOM.value
         }
-        console.log('submit data', studentData)
 
         const errors = validateData(studentData)
-
         if (errors.length > 0) {
-            throw {
-                message: 'กรอกข้อมูลไม่ครบ!',
-                errors: errors
-            }
+            throw { message: 'กรอกข้อมูลไม่ครบ!', errors }
         }
 
         let message = 'บันทึกข้อมูลสำเร็จ!'
-
-        if (mode == 'CREATE') {
-            const response = await axios.post(`${BASE_URL}/students`, studentData)
-            console.log('response', response.data)
+        if (mode === 'CREATE') {
+            await axios.post(`${BASE_URL}/students`, studentData)
         } else {
-            const response = await axios.put(`${BASE_URL}/students/${selectedId}`, studentData)
+            await axios.put(`${BASE_URL}/students/${selectedId}`, studentData)
             message = 'แก้ไขข้อมูลสำเร็จ!'
-            console.log('response', response.data)
         }
-        messageDOM.innerText = message
-        messageDOM.className = 'message success'
+
+        Swal.fire({
+            icon: 'success',
+            title: message,
+            showConfirmButton: false,
+            timer: 1500
+        })
+
+        document.querySelector('form').reset()
 
     } catch (error) {
-        console.log('error message', error.message)
-        console.log('error', error.errors)
         if (error.response) {
-            console.log(error.response)
             error.message = error.response.data.message
             error.errors = error.response.data.errors
         }
 
-        let htmlData = '<div>'
-        htmlData += `<div>${error.message}</div>`
-        htmlData += '<ul>'
-        for (let i = 0; i < error.errors.length; i++) {
-            htmlData += `<li>${error.errors[i]}</li>`
-        }
-        htmlData += '</ul>'
-        htmlData += '</div>'
-
-
-        messageDOM.innerHTML = htmlData
-        messageDOM.className = 'message danger'
+        Swal.fire({
+            icon: 'error',
+            title: error.message || 'เกิดข้อผิดพลาดบางอย่าง',
+            html: `<ul style="text-align: left;">${(error.errors || []).map(e => `<li>${e}</li>`).join('')}</ul>`
+        })
     }
 }
