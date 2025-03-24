@@ -1,11 +1,11 @@
 const BASE_URL = 'http://localhost:8000';
 
-// เมื่อหน้าเว็บโหลดเสร็จ จะดึงข้อมูลนักเรียนทั้งหมดมาแสดงก่อน
+// โหลดข้อมูลนักเรียนทั้งหมดเมื่อหน้าเว็บโหลด
 window.onload = async () => {
   await loadData();
 };
 
-// ดึงข้อมูลนักเรียนทั้งหมด (ไม่กรอง ไม่ค้นหา)
+// โหลดข้อมูลทั้งหมด
 const loadData = async () => {
   console.log('loaded');
   try {
@@ -16,58 +16,71 @@ const loadData = async () => {
   }
 };
 
-// ฟังก์ชันหลักสำหรับการค้นหา + กรอง
-// อ่านค่า keyword จากช่อง search และ level จาก dropdown
+// ฟังก์ชันค้นหาและกรอง
 const searchStudents = async () => {
   const keyword = document.getElementById('searchInput').value.trim();
   const level = document.getElementById('filterLevel').value;
   const warning = document.getElementById('searchWarning');
 
-  // ซ่อนข้อความเตือน "ไม่พบนักเรียน" ก่อน
   warning.style.display = 'none';
 
   try {
-    // สร้าง URL สำหรับเรียก API ถ้ามี search หรือ level ก็ให้ต่อ query string เข้าไป
     let url = `${BASE_URL}/students?search=${encodeURIComponent(keyword)}`;
     if (level) {
       url += `&level=${encodeURIComponent(level)}`;
     }
 
-    // เรียก GET ไปที่ API
     const response = await axios.get(url);
     const students = response.data;
 
-    // ถ้าไม่พบข้อมูลนักเรียนเลย ให้แสดงข้อความเตือน
     if (students.length === 0) {
       warning.innerText = 'ไม่พบนักเรียนที่ตรงกับคำค้นหา';
       warning.style.display = 'block';
     }
 
-    // แสดงผลลัพธ์บนหน้าเว็บ
     renderStudents(students);
   } catch (err) {
     console.error('Search error:', err);
   }
 };
 
-// ฟังก์ชันเมื่อมีการเปลี่ยน dropdown ระดับการศึกษา
-// เลือกใช้ฟังก์ชัน searchStudents() เพื่อให้การค้นหา + กรอง ใช้โค้ดเดียวกัน
+// กรองระดับชั้น
 const filterByLevel = async () => {
   await searchStudents();
 };
 
-// ฟังก์ชันที่ใช้ในการ render ข้อมูลนักเรียนบนหน้าเว็บ
+// Reset ทุกอย่าง
+const resetFilters = async () => {
+  document.getElementById('searchInput').value = '';
+  document.getElementById('filterLevel').value = '';
+  document.getElementById('searchWarning').style.display = 'none';
+  await loadData();
+};
+
+// แสดงผลนักเรียน
 const renderStudents = (students) => {
   const studentDOM = document.getElementById('student');
   let htmlData = '<div>';
 
-  for (let i = 0; i < students.length; i++) {
-    let student = students[i];
+  for (let student of students) {
     htmlData += `
-      <div>
-        ${student.id} ${student.firstname} ${student.lastname} ${student.age}
-        <a href='index.html?id=${student.id}'><button>Edit</button></a>
-        <button class='delete' data-id='${student.id}' data-firstname='${student.firstname}' data-lastname='${student.lastname}'>Delete</button>
+      <div class="student-card">
+        <div class="student-details">
+          <div class="student-name">${student.firstname} ${student.lastname}</div>
+          <div class="student-meta">
+            📚 ชั้นปี: ${student.education_level || '-'} |
+            🎂 อายุ: ${student.age || '-'}
+          </div>
+        </div>
+        <div class="student-actions">
+          <a href="view.html?id=${student.id}">
+            <button class="view-btn">View</button>
+          </a>
+          <a href="index.html?id=${student.id}">
+            <button class="edit-btn">Edit</button>
+          </a>
+          <button class="delete-btn" data-id="${student.id}" data-firstname="${student.firstname}" data-lastname="${student.lastname}">Delete</button>
+        </div>
       </div>
     `;
   }
@@ -75,15 +88,14 @@ const renderStudents = (students) => {
   htmlData += '</div>';
   studentDOM.innerHTML = htmlData;
 
-  // ผูก event สำหรับปุ่มลบ
-  const deleteDOMs = document.getElementsByClassName('delete');
-  for (let i = 0; i < deleteDOMs.length; i++) {
-    deleteDOMs[i].addEventListener('click', async (event) => {
+  // Event ลบ
+  const deleteDOMs = document.getElementsByClassName('delete-btn');
+  for (let btn of deleteDOMs) {
+    btn.addEventListener('click', async (event) => {
       const id = event.target.dataset.id;
       const firstname = event.target.dataset.firstname;
       const lastname = event.target.dataset.lastname;
 
-      // แจ้งเตือน SweetAlert2 ก่อนลบ
       const result = await Swal.fire({
         title: 'ลบนักเรียน?',
         text: `คุณแน่ใจหรือไม่ว่าต้องการลบ "${firstname} ${lastname}" ออกจากระบบ?`,
@@ -99,7 +111,7 @@ const renderStudents = (students) => {
 
       try {
         await axios.delete(`${BASE_URL}/students/${id}`);
-        await loadData(); // โหลดข้อมูลใหม่ (แสดงผลล่าสุด)
+        await loadData();
 
         Swal.fire({
           icon: 'success',

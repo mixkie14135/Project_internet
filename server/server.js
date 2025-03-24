@@ -78,7 +78,7 @@ app.get('/students', async (req, res) => {
     let params = [];
 
     console.log('DEBUG:', { rawSearch, level, search }); // ลองดูว่าค่าออกมาถูกมั้ย
-    
+
     // ถ้ามีคีย์เวิร์ด search ให้กรองจาก firstname, lastname
     if (search !== '') {
       sql += ' AND (LOWER(firstname) LIKE ? OR LOWER(lastname) LIKE ?)';
@@ -200,6 +200,8 @@ app.delete('/students/:id', async (req, res) => {
     });
   }
 });
+
+
 
 // เริ่มต้นเปิด server + เชื่อมต่อ DB
 app.listen(port, async () => {
